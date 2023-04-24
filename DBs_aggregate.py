@@ -5,11 +5,17 @@ class DB_agregator(HH):
     try:
         with conn:
             with conn.cursor() as cur:
-                hh = HH()
-                employers_list = hh.get_request_employer()
-                list_vacancies = hh.get_request_vacancy(employers_list)
-                for job in list_vacancies:
-                    cur.execute('INSERT INTO companies DISTINCT VALUES (%s, %s)', (job['Company_id'], job['Company_name'],))
+                i = HH()
+                employers_list = i.get_request_employer_name()
+                id = i.get_request_employer_id(employers_list)
+                employers_links = i.get_request_employer_url(id)
+                vacancies = i.get_request_vacancy(employers_links)
+                companies = dict(zip(employers_list, id))
+                for name, company_id in companies.items():
+                    cur.execute('INSERT INTO companies VALUES (%s, %s)', (name, company_id))
+                for info in vacancies:
+                    cur.execute('INSERT INTO vacancies VALUES (%s, %s, %s, %s, %s)', (info['Company_id'], info['Vacancy_Name'], info['Salary'],
+                                                                                          info['Link'], info['Requirement']))
 
 
     finally:
