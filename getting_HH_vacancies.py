@@ -3,8 +3,6 @@ import requests
 class HH:
     def get_request_employer_id(self, companies_list):
         '''Полуение списка id работодателей'''
-        employers_list = ['ITConstruct', 'Первый Бит', 'WONE IT', 'ЭЛТЕКС СОЛЮШЕНС', 'Элементарные программные решения',
-                          'СДЭК', 'Softline', 'Сбер. IT', 'БКС IT & Digital', 'S7 IT']
         list_id = []
         for i in companies_list:
             response = requests.get(f"https://api.hh.ru/employers?text={i}").json()['items']
