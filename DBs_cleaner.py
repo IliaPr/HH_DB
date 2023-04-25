@@ -1,5 +1,6 @@
 import psycopg2
-class DB_agregator():
+class DB_cleaner():
+    '''класс очистки данных в таблице'''
     conn = psycopg2.connect(host = 'localhost', database = 'HH_jobs', user = 'postgres', password = '150774')
     try:
         with conn:
