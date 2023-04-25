@@ -1,9 +1,20 @@
-from DBs_cleaner import DB_cleaner
-from DBs_manager import DBManager
-from DBs_aggregate import DB_agregator
+from db_cleaner import DB_cleaner
+from db_manager import DBManager
+from db_aggregate import DB_agregator
+from getting_HH_vacancies import HH
 
-'''Основна логика программы'''
+'''Основная логика программы'''
+
+input('Привет, эта прорамма анализирует вакансии от 10 работодателей, нажмите enter для запуска')
+print('поиск...')
+employers_list = ['ITConstruct', 'Первый Бит', 'WONE IT', 'ЭЛТЕКС СОЛЮШЕНС', 'Элементарные программные решения',
+                  'СДЭК', 'Softline', 'Сбер. IT', 'БКС IT & Digital', 'S7 IT']
+i = HH()
+list_id = i.get_request_employer_id(employers_list)
+url = i.get_request_employer_url(list_id)
+vacancies = i.get_request_vacancy(url)
 program_start = DB_agregator()
+data = program_start.filling_table_data(list_id, employers_list, vacancies)
 print('Вакансии записаны в базу данных!')
 print('Для продолжения работы введите номер одной из следующих команд:\n '
       '1. Вывести список всех компаний и количество вакансий у каждой компании.\n'
@@ -54,6 +65,3 @@ while user_choose != 's':
 if user_choose == 's':
       clean = DB_cleaner()
       print('Программа завершила работу!')
-
-
-

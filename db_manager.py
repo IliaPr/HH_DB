@@ -1,6 +1,4 @@
 import psycopg2
-
-
 class DBManager:
     def connection(self):
         '''Подклюение к БД'''
