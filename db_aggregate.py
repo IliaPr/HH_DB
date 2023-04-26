@@ -1,11 +1,14 @@
 import psycopg2
 class DB_agregator:
-    '''Заполнение таблиц БД данными'''
+    def connection(self):
+        '''Подклюение к БД'''
+        self.conn = psycopg2.connect(host='localhost', database='HH_jobs', user='postgres', password='150774')
+        return self.conn
     def filling_table_data(self, list_id, employers_list, vacancies):
-        conn = psycopg2.connect(host = 'localhost', database = 'HH_jobs', user = 'postgres', password = '150774')
+        '''Заполнение таблиц БД данными'''
         try:
-            with conn:
-                with conn.cursor() as cur:
+            with self.conn:
+                with self.conn.cursor() as cur:
                     companies = dict(zip(employers_list, list_id))
                     for name, company_id in companies.items():
                         cur.execute('INSERT INTO companies VALUES (%s, %s)', (name, company_id))
@@ -14,4 +17,4 @@ class DB_agregator:
                                                                                           info['Link'], info['Requirement']))
 
         finally:
-            conn.close()
+            self.conn.close()
