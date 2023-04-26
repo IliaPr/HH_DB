@@ -14,8 +14,3 @@ class DB_cleaner:
 
         finally:
             self.conn.close()
-
-if __name__ == '__main__':
-    i = DB_cleaner()
-    conn = i.connection()
-    clean = i.cleaner()
