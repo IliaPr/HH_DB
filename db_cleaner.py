@@ -4,8 +4,8 @@ class DB_cleaner:
         '''Подклюение к БД'''
         self.conn = psycopg2.connect(host='localhost', database='HH_jobs', user='postgres', password='150774')
         return self.conn
-    '''класс очистки данных в таблице'''
     def cleaner(self):
+        '''Удаление данных из таблиц'''
         try:
             with self.conn:
                 with self.conn.cursor() as cur:
