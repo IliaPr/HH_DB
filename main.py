@@ -14,6 +14,7 @@ list_id = i.get_request_employer_id(employers_list)
 url = i.get_request_employer_url(list_id)
 vacancies = i.get_request_vacancy(url)
 program_start = DB_agregator()
+conn = program_start.connection()
 data = program_start.filling_table_data(list_id, employers_list, vacancies)
 print('Вакансии записаны в базу данных!')
 print('Для продолжения работы введите номер одной из следующих команд:\n '
@@ -64,4 +65,6 @@ while user_choose != 's':
 
 if user_choose == 's':
       clean = DB_cleaner()
+      conn = clean.connection()
+      clean_db = clean.cleaner()
       print('Программа завершила работу!')
